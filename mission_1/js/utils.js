@@ -10,3 +10,17 @@ export const hideError = ($msgElement, $targetInput) => {
   $targetInput.classList.remove("error");
   return true;
 };
+
+export const showPwdToggle = (target, inputTag) => {
+  if (target.classList.value === "show_password_disable") {
+    target.src = "../assets/lens_show.png";
+    target.classList.remove("show_password_disable");
+    target.classList.add("show_password_enable");
+    inputTag.type = "text";
+  } else {
+    target.src = "../assets/lens_x.png";
+    target.classList.remove("show_password_enable");
+    target.classList.add("show_password_disable");
+    inputTag.type = "password";
+  }
+};

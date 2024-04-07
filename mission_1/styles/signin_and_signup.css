@@ -76,17 +76,19 @@ input.error {
 .password_wrapper {
   position: relative;
 }
-.show_password {
+.show_password_disable {
   position: absolute;
   width: 24px;
   right: 10px;
   top: 15px;
   cursor: pointer;
 }
-.showLens {
-  top: 19px;
-  right: 12px;
+.show_password_enable {
+  position: absolute;
   width: 21px;
+  right: 12px;
+  top: 19px;
+  cursor: pointer;
 }
 a#loginButton {
   display: block;

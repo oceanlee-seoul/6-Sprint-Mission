@@ -1,4 +1,4 @@
-import { showError, hideError } from "./utils.js";
+import { showError, hideError, showPwdToggle } from "./utils.js";
 
 const $emailInput = document.getElementById("emailInput");
 const $passwordInput = document.getElementById("passwordInput");
@@ -10,43 +10,15 @@ const $nicknameError = document.getElementById("nicknameError");
 const $pwdError = document.getElementById("pwdError");
 const $pwdCheckError = document.getElementById("pwdCheckError");
 
-const noShowPwdImg = "../assets/lens_x.png";
-const showPwdImg = "../assets/lens_show.png";
-
 const $showPassword = document.getElementById("showPassword");
 const $showPasswordCheck = document.getElementById("showPasswordCheck");
 
-const showPwdBoolObj = {
-  showPassword: false,
-  showPasswordCheck: false,
-};
-
-$showPassword.addEventListener("click", (e) => {
-  if (!showPwdBoolObj.showPassword) {
-    showPwdBoolObj.showPassword = true;
-    e.target.src = showPwdImg;
-    e.target.classList.add("showLens");
-    $passwordInput.type = "text";
-  } else {
-    showPwdBoolObj.showPassword = false;
-    e.target.src = noShowPwdImg;
-    e.target.classList.remove("showLens");
-    $passwordInput.type = "password";
-  }
+$showPassword.addEventListener("click", ({ target }) => {
+  showPwdToggle(target, $passwordInput);
 });
 
-$showPasswordCheck.addEventListener("click", (e) => {
-  if (!showPwdBoolObj.showPasswordCheck) {
-    showPwdBoolObj.showPasswordCheck = true;
-    e.target.src = showPwdImg;
-    e.target.classList.add("showLens");
-    $pwdCheckInput.type = "text";
-  } else {
-    showPwdBoolObj.showPasswordCheck = false;
-    e.target.src = noShowPwdImg;
-    e.target.classList.remove("showLens");
-    $pwdCheckInput.type = "password";
-  }
+$showPasswordCheck.addEventListener("click", ({ target }) => {
+  showPwdToggle(target, $pwdCheckInput);
 });
 
 const $loginButton = document.getElementById("loginButton");
