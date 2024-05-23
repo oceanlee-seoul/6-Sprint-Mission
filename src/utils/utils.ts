@@ -1,5 +1,5 @@
 export function formatKorWon(value) {
-  return Number(value).toLocaleString("ko-KR") + "원";
+  return Number(value).toLocaleString('ko-KR') + '원';
 }
 
 export function calculateTimeDifference(timestamp) {
@@ -9,8 +9,8 @@ export function calculateTimeDifference(timestamp) {
   let hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60));
   if (hoursDiff >= 24) {
     let daysDiff = Math.floor(hoursDiff / 24);
-    return daysDiff + "일 전";
+    return daysDiff + '일 전';
   } else {
-    return hoursDiff + "시간 전";
+    return hoursDiff + '시간 전';
   }
 }

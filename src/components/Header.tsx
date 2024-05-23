@@ -1,9 +1,9 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import logoOnly from "../assets/logo_only.svg";
-import logoText from "../assets/logo_text.svg";
-import Button from "./Button.jsx";
-import "../styles/Header.css";
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import logoOnly from '../assets/logo_only.svg';
+import logoText from '../assets/logo_text.svg';
+import Button from './Button.jsx';
+import '../styles/Header.css';
 
 const Header = () => {
   return (
@@ -22,9 +22,7 @@ const Header = () => {
           <NavLink to="/items">중고마켓</NavLink>
         </div>
         <div className="header__btn-wrapper">
-          <Button>
-            로그인
-          </Button>
+          <Button>로그인</Button>
         </div>
       </div>
     </header>

@@ -1,12 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
-import HomePage from "./pages/HomePage";
-import Items from "./pages/Items";
-import Board from "./pages/Board";
-import AddItem from "./pages/AddItem";
-import DetailItem from "./pages/DetailItem";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import App from './App';
+import HomePage from './pages/HomePage';
+import Items from './pages/Items';
+import Board from './pages/Board';
+import AddItem from './pages/AddItem';
+import DetailItem from './pages/DetailItem';
 
-const Main = () => {
+const Main: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
