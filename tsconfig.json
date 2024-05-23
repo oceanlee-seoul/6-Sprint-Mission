@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist", // 컴파일된 파일을 보관할 디렉토리
+    "rootDir": "./src", // 소스 파일의 루트 디렉토리
+    "sourceMap": true // 디버깅을 위한 소스맵 파일 생성
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
