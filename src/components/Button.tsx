@@ -1,11 +1,18 @@
-import React from "react";
-import "../styles/Button.css";
+import { ReactNode } from 'react';
+import '../styles/Button.css';
 
-const Button = ({ children, type = "", disable, onClick }) => {
+interface IButtonProps {
+  children: ReactNode;
+  type?: 'submit' | 'reset' | 'button' | undefined;
+  disable?: boolean;
+  onClick?: any;
+}
+
+const Button = ({ children, type, disable, onClick }: IButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`Button ${disable ? "disable" : "enable"}`}
+      className={`Button ${disable ? 'disable' : 'enable'}`}
       type={type}
       disabled={disable}
     >

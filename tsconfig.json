@@ -11,6 +11,6 @@
     "rootDir": "./src", // 소스 파일의 루트 디렉토리
     "sourceMap": true // 디버깅을 위한 소스맵 파일 생성
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "custom.d.ts"],
   "exclude": ["node_modules"]
 }

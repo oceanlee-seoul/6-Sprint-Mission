@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { fetchTopFourBestItems } from "../../apis/apis";
-import "../../styles/Items/BestItemsList.css";
-import BestItem from "./BestItem.jsx";
+import { useState, useEffect } from 'react';
+import { fetchTopFourBestItems } from '../../apis/apis';
+import '../../styles/Items/BestItemsList.css';
+import BestItem from './BestItem.js';
 
 const getDisplayedItems = () => {
   const width = window.innerWidth;
@@ -38,10 +38,10 @@ const BestItemsList = () => {
       }
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

@@ -1,7 +1,14 @@
-import "../../styles/Items/Item.css";
-import iconLikes from "../../assets/Icon_likes.svg";
+import '../../styles/Items/Item.css';
+import iconLikes from '../../assets/Icon_likes.svg';
 
-const Item = ({ imgSrc, name, price, favoriteCount }) => {
+interface IItemProps {
+  imgSrc: string;
+  name: string;
+  price: string;
+  favoriteCount: number;
+}
+
+const Item = ({ imgSrc, name, price, favoriteCount }: IItemProps) => {
   return (
     <div className="item">
       <div className="item__img-frame">

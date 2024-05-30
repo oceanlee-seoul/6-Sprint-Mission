@@ -1,16 +1,30 @@
-import ICON_ARROW from "../assets/icon_arrow_left.svg";
-import "../styles/Pagenation.css";
+import ICON_ARROW from '../assets/icon_arrow_left.svg';
+import '../styles/Pagenation.css';
 
-const PageButton = ({ page, currentPage, handlePage }) => {
+interface IPageButtonProps {
+  page: number;
+  currentPage: number;
+  handlePage: any;
+}
+
+const PageButton = ({ page, currentPage, handlePage }: IPageButtonProps) => {
   return (
     <div
       onClick={handlePage}
-      className={`pageButton ${currentPage === page ? "isActive" : ""}`}
+      className={`pageButton ${currentPage === page ? 'isActive' : ''}`}
     >
       {page}
     </div>
   );
 };
+
+interface IPagenationProps {
+  totalPages: number;
+  currentPage: number;
+  handlePageBtn: any;
+  handlePagePrevBtn: any;
+  handlePageNextBtn: any;
+}
 
 const Pagenation = ({
   totalPages,
@@ -18,8 +32,8 @@ const Pagenation = ({
   handlePageBtn,
   handlePagePrevBtn,
   handlePageNextBtn,
-}) => {
-  const createPagenation = (totalPages) => {
+}: IPagenationProps) => {
+  const createPagenation = (totalPages: number) => {
     const pagenationArray = [];
     for (let i = 1; i <= totalPages; i++) {
       pagenationArray.push(
@@ -30,7 +44,7 @@ const Pagenation = ({
           handlePage={() => {
             handlePageBtn(i);
           }}
-        />
+        />,
       );
     }
     return pagenationArray;
