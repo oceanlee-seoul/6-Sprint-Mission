@@ -23,7 +23,9 @@ export default function BestArticleItem({ article }: BestArticleItemProps) {
         alt="베스트 게시글 뱃지 이미지"
       />
       <div className="flex justify-between mt-[10px] pl-[20px] pr-[20px]">
-        <h1 className="text-[20px] text-[#1f2937] font-semibold ">{title}</h1>
+        <h1 className="text-[20px] flex-1 text-[#1f2937] font-semibold ">
+          {title}
+        </h1>
         {image ? (
           <div className={imageWrapperClassName}>
             <Image

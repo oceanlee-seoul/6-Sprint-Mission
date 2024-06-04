@@ -38,7 +38,13 @@ export default function ArticleListItem({ article }: ArticleListItemProps) {
       </div>
       <div className="flex justify-between mb-[20px]">
         <div className="flex items-center gap-[5px]">
-          <Image src={IMG_PROFILE} alt="프로필 이미지" width={24} />
+          <Image
+            src={IMG_PROFILE}
+            alt="프로필 이미지"
+            width={24}
+            height={24}
+            style={{ width: '24px', height: ' 24px' }}
+          />
           <p className="text-[14px] text-[#4b5563]">{writer.nickname}</p>
           <p className="text-[14px] text-[#9ca3af]">
             {formatDate(updatedAt) +

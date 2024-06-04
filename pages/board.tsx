@@ -59,6 +59,23 @@ export default function Board() {
     setParams((prevParams) => ({ ...prevParams, [key]: value }));
   }
 
+  function getResponseBestArticleSize(
+    displaySize: TDisplaySize | undefined,
+  ): number {
+    let articlesToDisplay;
+    switch (displaySize) {
+      case 'desktop':
+        articlesToDisplay = 3;
+        break;
+      case 'tablet':
+        articlesToDisplay = 2;
+        break;
+      default:
+        articlesToDisplay = 1;
+    }
+    return articlesToDisplay;
+  }
+
   useEffect(() => {
     function getDisplaySize() {
       const width = window.innerWidth;
@@ -98,20 +115,13 @@ export default function Board() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex items-start justify-center">
+      <div className="flex items-center justify-center">
         <Container>
           <section>
             <h1 className="font-bold text-[20px] mb-[20px]">베스트 게시글</h1>
             <div className="flex justify-around md:gap-[10px] mb-[30px]">
               {bestArticles
-                ?.slice(
-                  0,
-                  displaySize === 'desktop'
-                    ? 3
-                    : displaySize === 'tablet'
-                    ? 2
-                    : 1,
-                )
+                ?.slice(0, getResponseBestArticleSize(displaySize))
                 .map((article) => (
                   <BestArticleItem
                     key={`BestArticle-${article.id}`}
