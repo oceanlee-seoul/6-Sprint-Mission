@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { loadArticles, ILoadArticlesParams } from './api/apis';
 
 import Button from '@/components/Button';
+import BestArticleItem from '@/components/BestArticleItem';
 import ArticleListItem from '@/components/ArticlesListItem';
 import Container from '@/components/Container';
 import FilterBox from '@/components/FilterBox';
 
 import ICON_MAGNIFY from '@/public/icon-magnify.svg';
-import BestArticleItem from '@/components/BestArticleItem';
 
 export interface IArticle {
   id: number;
@@ -44,9 +44,10 @@ export default function Board() {
     const articleList = await loadArticles(params);
     setArticles(articleList || []);
   };
-  const fetchBestArticles = async () => {
+
+  const fetchBestArticles = async (pageSize: number) => {
     const BestArticleList = await loadArticles({
-      pageSize: 3,
+      pageSize,
       orderBy: 'like',
     });
     setBestArticles(BestArticleList || []);
@@ -88,18 +89,25 @@ export default function Board() {
       }
     }
 
-    fetchArticles();
-    fetchBestArticles();
+    function handleResize() {
+      setDisplaySize(getDisplaySize());
+      fetchBestArticles(getResponseBestArticleSize(getDisplaySize()));
+    }
+
+    let debounceTimer: ReturnType<typeof setTimeout>;
+
+    function debounceHandleResize() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(handleResize, 100); // 100ms의 디바운스 타임
+    }
+
+    fetchBestArticles(getResponseBestArticleSize(getDisplaySize()));
     setDisplaySize(getDisplaySize());
 
-    window.addEventListener('resize', () => {
-      setDisplaySize(getDisplaySize());
-    });
+    window.addEventListener('resize', debounceHandleResize);
 
     return () => {
-      window.removeEventListener('resize', () => {
-        setDisplaySize(getDisplaySize());
-      });
+      window.removeEventListener('resize', debounceHandleResize);
     };
   }, []);
 
@@ -114,17 +122,15 @@ export default function Board() {
       </Head>
       <div className="flex items-center justify-center">
         <Container>
-          <section>
+          <section className="w-[100%]">
             <h1 className="font-bold text-[20px] mb-[20px]">베스트 게시글</h1>
-            <div className="flex justify-around md:gap-[10px] mb-[30px]">
-              {bestArticles
-                ?.slice(0, getResponseBestArticleSize(displaySize))
-                .map((article) => (
-                  <BestArticleItem
-                    key={`BestArticle-${article.id}`}
-                    article={article}
-                  />
-                ))}
+            <div className="w-[100%] flex justify-around md:gap-[10px] mb-[30px] overflow-x-hidden">
+              {bestArticles?.map((article) => (
+                <BestArticleItem
+                  key={`BestArticle-${article.id}`}
+                  article={article}
+                />
+              ))}
             </div>
           </section>
           <section>

@@ -16,7 +16,7 @@ export default function BestArticleItem({ article }: BestArticleItemProps) {
     'w-[72px] h-[72px] rounded-lg border border-[#E5E5EB] flex items-center justify-center';
 
   return (
-    <div className="border box-border w-[384px] h-[169px] rounded-xl">
+    <div className="flex-shrink-0 border box-border lg:w-[384px] md:w-[49%] sm:w-[100%] h-[169px] rounded-xl">
       <Image
         className="ml-[25px]"
         src={IMG_BADGE_BEST}
