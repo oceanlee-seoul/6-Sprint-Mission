@@ -8,5 +8,5 @@ tailwind-css
 npm run dev
 npm run build
 npm run start
-npm run link
+npm run lint
 ```
