@@ -13,6 +13,7 @@ import { formatDate } from '@/utils/utils';
 import ICON_KEBAB from '@/public/icon-kebab.svg';
 import IMG_PROFILE from '@/public/profile.svg';
 import ICON_HEART from '@/public/icon-heart.svg';
+import CommentsList from '@/components/CommentsList';
 
 export default function BoardDetail() {
   const router = useRouter();
@@ -76,6 +77,9 @@ export default function BoardDetail() {
             </div>
           </div>
           <div className="py-[20px]">{article?.content}</div>
+          <div>
+            <CommentsList commentsList={comments} />
+          </div>
         </Container>
       </div>
     </>
