@@ -6,8 +6,8 @@ import Image from 'next/image';
 
 import Container from '@/components/Container';
 
+import { IArticle, IArticleComment } from '@/interface/interface';
 import { loadArticlesDetail, loadCommentsList } from '@/pages/api/apis';
-import { IArticle } from '@/pages/board';
 import { formatDate } from '@/utils/utils';
 
 import ICON_KEBAB from '@/public/icon-kebab.svg';
@@ -17,7 +17,7 @@ import ICON_HEART from '@/public/icon-heart.svg';
 export default function BoardDetail() {
   const router = useRouter();
   const [article, setArticle] = useState<IArticle>();
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<IArticleComment[]>([]);
 
   const fetchArticleDetail = async () => {
     if (typeof router.query.id === 'string') {
@@ -28,7 +28,9 @@ export default function BoardDetail() {
 
   const fetchCommentsList = async () => {
     if (typeof router.query.id === 'string') {
-      const commentsList = await loadCommentsList(router.query.id);
+      const commentsList: IArticleComment[] = await loadCommentsList(
+        router.query.id,
+      );
       setComments(commentsList);
     }
   };

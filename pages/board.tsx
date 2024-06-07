@@ -4,7 +4,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { loadArticles, ILoadArticlesParams } from '@/pages/api/apis';
+import { IArticle, ILoadArticlesParams } from '@/interface/interface';
+import { loadArticles } from '@/pages/api/apis';
 
 import Button from '@/components/Button';
 import BestArticleItem from '@/components/BestArticleItem';
@@ -13,20 +14,6 @@ import Container from '@/components/Container';
 import FilterBox from '@/components/FilterBox';
 
 import ICON_MAGNIFY from '@/public/icon-magnify.svg';
-
-export interface IArticle {
-  id: number;
-  title: string;
-  content: string;
-  image: string | null;
-  likeCount: number;
-  createdAt: string;
-  updatedAt: string;
-  writer: {
-    id: number;
-    nickname: string;
-  };
-}
 
 type TDisplaySize = 'desktop' | 'tablet' | 'mobile';
 

@@ -1,11 +1,5 @@
 import axios from '@/lib/axios';
-
-export interface ILoadArticlesParams {
-  page?: number;
-  pageSize?: number;
-  orderBy?: 'recent' | 'like';
-  keyword?: string;
-}
+import { ILoadArticlesParams } from '@/interface/interface';
 
 export async function loadArticles({
   page = 1,

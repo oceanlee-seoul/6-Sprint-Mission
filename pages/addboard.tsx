@@ -7,12 +7,7 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 
 import ICON_PLUS from '@/public/icon-plus.svg';
-
-interface IBoardValues {
-  title: string;
-  content: string;
-  imgFile: string | null;
-}
+import { IBoardValues } from '@/interface/interface';
 
 export default function AddBoard() {
   const [values, setValues] = useState<IBoardValues>({
