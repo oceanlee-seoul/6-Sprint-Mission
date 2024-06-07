@@ -3,8 +3,11 @@ import { useRouter } from 'next/router';
 
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Container from '@/components/Container';
+import CommentsList from '@/components/CommentsList';
+import Button from '@/components/Button';
 
 import { IArticle, IArticleComment } from '@/interface/interface';
 import { loadArticlesDetail, loadCommentsList } from '@/pages/api/apis';
@@ -13,7 +16,7 @@ import { formatDate } from '@/utils/utils';
 import ICON_KEBAB from '@/public/icon-kebab.svg';
 import IMG_PROFILE from '@/public/profile.svg';
 import ICON_HEART from '@/public/icon-heart.svg';
-import CommentsList from '@/components/CommentsList';
+import ICON_BACK from '@/public/icon-back.svg';
 
 export default function BoardDetail() {
   const router = useRouter();
@@ -79,6 +82,13 @@ export default function BoardDetail() {
           <div className="py-[20px]">{article?.content}</div>
           <div>
             <CommentsList commentsList={comments} />
+          </div>
+          <div>
+            <div className="w-[240px] h-[48px] rounded-[40px] overflow-hidden mx-auto mt-[40px]">
+              <Link href="/board">
+                <Button>목록으로 돌아가기</Button>
+              </Link>
+            </div>
           </div>
         </Container>
       </div>
