@@ -36,3 +36,13 @@ export async function loadCommentsList(articleId: string) {
     console.error('Error get Articles Detail', error);
   }
 }
+
+export async function addComment(articleId: string, value: string) {
+  try {
+    await axios.post(`/articles/${articleId}/comments`, {
+      content: value,
+    });
+  } catch (error) {
+    console.error('Error get Articles Detail', error);
+  }
+}

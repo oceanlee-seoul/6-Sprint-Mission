@@ -17,6 +17,7 @@ import ICON_KEBAB from '@/public/icon-kebab.svg';
 import IMG_PROFILE from '@/public/profile.svg';
 import ICON_HEART from '@/public/icon-heart.svg';
 import ICON_BACK from '@/public/icon-back.svg';
+import AddComment from '@/components/AddComment';
 
 export default function BoardDetail() {
   const router = useRouter();
@@ -80,6 +81,13 @@ export default function BoardDetail() {
             </div>
           </div>
           <div className="py-[20px]">{article?.content}</div>
+          <div>
+            <AddComment
+              articleId={
+                typeof router.query.id === 'string' ? router.query.id : ''
+              }
+            />
+          </div>
           <div>
             <CommentsList commentsList={comments} />
           </div>
