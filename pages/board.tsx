@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 
-import { loadArticles, ILoadArticlesParams } from './api/apis';
+import { loadArticles, ILoadArticlesParams } from '@/pages/api/apis';
 
 import Button from '@/components/Button';
 import BestArticleItem from '@/components/BestArticleItem';
@@ -29,6 +31,8 @@ export interface IArticle {
 type TDisplaySize = 'desktop' | 'tablet' | 'mobile';
 
 export default function Board() {
+  const router = useRouter();
+
   const [articles, setArticles] = useState<IArticle[]>([]);
   const [bestArticles, setBestArticles] = useState<IArticle[]>([]);
   const [params, setParams] = useState<ILoadArticlesParams>({
@@ -137,7 +141,13 @@ export default function Board() {
             <div className="flex items-center justify-between mb-[20px]">
               <h1 className="font-bold text-[20px]">게시글</h1>
               <div className="w-[88px] h-[42px] rounded-lg overflow-hidden">
-                <Button>글쓰기</Button>
+                <Button
+                  onClick={() => {
+                    router.push('/addboard');
+                  }}
+                >
+                  글쓰기
+                </Button>
               </div>
             </div>
             <div className="flex justify-between gap-[15px] h-[42px]">
@@ -171,10 +181,12 @@ export default function Board() {
             </div>
             <div>
               {articles?.map((article) => (
-                <ArticleListItem
-                  key={`article-${article.id}`}
-                  article={article}
-                />
+                <Link href={`board/${article.id}`}>
+                  <ArticleListItem
+                    key={`article-${article.id}`}
+                    article={article}
+                  />
+                </Link>
               ))}
             </div>
           </section>
