@@ -168,11 +168,11 @@ export default function Board() {
             </div>
             <div>
               {articles?.map((article) => (
-                <Link href={`board/${article.id}`}>
-                  <ArticleListItem
-                    key={`article-${article.id}`}
-                    article={article}
-                  />
+                <Link
+                  key={`article-Link-${article.id}`}
+                  href={`board/${article.id}`}
+                >
+                  <ArticleListItem article={article} />
                 </Link>
               ))}
             </div>

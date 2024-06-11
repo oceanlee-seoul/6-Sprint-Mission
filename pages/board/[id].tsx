@@ -92,7 +92,7 @@ export default function BoardDetail() {
             <CommentsList commentsList={comments} />
           </div>
           <div>
-            <div className="w-[240px] h-[48px] rounded-[40px] overflow-hidden mx-auto mt-[40px]">
+            <div className="w-[240px] h-[48px] rounded-[40px] overflow-hidden mx-auto mt-[40px] mb-[40px]">
               <Link href="/board">
                 <Button>목록으로 돌아가기</Button>
               </Link>
