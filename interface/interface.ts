@@ -34,5 +34,5 @@ export interface IArticleComment {
 export interface IBoardValues {
   title: string;
   content: string;
-  imgFile: string | null;
+  imgFile: File | null;
 }

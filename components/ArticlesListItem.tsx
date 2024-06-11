@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { IArticle } from '@/pages/board';
+import { IArticle } from '@/interface/interface';
 import { formatDate } from '@/utils/utils';
 import IMG_PROFILE from '@/public/profile.svg';
 import ICON_HEART from '@/public/icon-heart.svg';
