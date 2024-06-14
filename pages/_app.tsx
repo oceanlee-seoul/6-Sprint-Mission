@@ -2,10 +2,14 @@ import Header from '@/components/Header';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }: AppProps) {
+type TCustomAppProps = AppProps & {
+  Component: AppProps['Component'] & { hideHeader?: boolean };
+};
+
+export default function App({ Component, pageProps }: TCustomAppProps) {
   return (
     <>
-      <Header />
+      {!Component.hideHeader && <Header />}
       <Component {...pageProps} />
     </>
   );

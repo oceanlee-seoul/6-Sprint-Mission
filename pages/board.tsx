@@ -111,7 +111,7 @@ export default function Board() {
       <Head>
         <title>판다마켓 - 자유게시판</title>
       </Head>
-      <div className="flex items-center justify-center">
+      <div className="mt-[100px] flex items-center justify-center">
         <Container>
           <section className="w-[100%]">
             <h1 className="font-bold text-[20px] mb-[20px]">베스트 게시글</h1>

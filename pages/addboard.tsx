@@ -59,7 +59,7 @@ export default function AddBoard() {
       <Head>
         <title>판다마켓 - 게시글 쓰기</title>
       </Head>
-      <div className="flex items-center justify-center">
+      <div className="mt-[100px] flex items-center justify-center">
         <Container>
           <div className="mb-[20px] flex justify-between items-center">
             <h1 className="font-bold text-[20px]">게시글 쓰기</h1>
