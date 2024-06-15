@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from '@/lib/axios';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
@@ -19,7 +21,7 @@ type TInputs = {
   email: string;
   nickname: string;
   password: string;
-  passwordCheck: string;
+  passwordConfirmation: string;
 };
 
 const schema = yup.object().shape({
@@ -29,7 +31,7 @@ const schema = yup.object().shape({
     .required('이메일을 입력해주세요.'),
   nickname: yup.string().required('닉네임을 입력해주세요.'),
   password: yup.string().required('비밀번호를 입력해주세요.'),
-  passwordCheck: yup
+  passwordConfirmation: yup
     .string()
     .required('비밀번호 확인을 입력해주세요.')
     .test('passwords-match', '비밀번호가 일치하지 않습니다.', function (value) {
@@ -38,6 +40,8 @@ const schema = yup.object().shape({
 });
 
 export default function Signup() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -50,33 +54,42 @@ export default function Signup() {
   });
 
   const password = watch('password');
-  const passwordCheck = watch('passwordCheck');
+  const passwordConfirmation = watch('passwordConfirmation');
 
   useEffect(() => {
-    trigger('passwordCheck');
-  }, [password, passwordCheck, trigger]);
+    trigger('passwordConfirmation');
+  }, [password, passwordConfirmation, trigger]);
 
-  const onSubmit: SubmitHandler<TInputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<TInputs> = async (data) => {
+    try {
+      await axios.post('/auth/signUp', data);
+      router.push('/login');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center">
       <Container>
-        <div className="flex items-center justify-center gap-[20px] my-[50px]">
-          <Image
-            src={LOGO_IMG}
-            alt="판다마켓 로고"
-            width={100}
-            style={{ height: 'auto' }}
-            priority
-          />
-          <Image
-            src={LOGO_TEXT}
-            alt="판다마켓 로고"
-            width={266}
-            style={{ height: 'auto' }}
-            priority
-          />
-        </div>
+        <Link href="/">
+          <div className="flex items-center justify-center gap-[20px] my-[50px]">
+            <Image
+              src={LOGO_IMG}
+              alt="판다마켓 로고"
+              width={100}
+              style={{ height: 'auto' }}
+              priority
+            />
+            <Image
+              src={LOGO_TEXT}
+              alt="판다마켓 로고"
+              width={266}
+              style={{ height: 'auto' }}
+              priority
+            />
+          </div>
+        </Link>
         <form
           className="flex flex-col gap-[25px]"
           onSubmit={handleSubmit(onSubmit)}
@@ -147,7 +160,7 @@ export default function Signup() {
                 autoComplete="new-password"
                 className="w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px]"
                 placeholder="비밀번호를 다시 한 번 입력해주세요"
-                {...register('passwordCheck')}
+                {...register('passwordConfirmation')}
               />
               <Image
                 className="absolute top-[15px] right-[15px]"
@@ -155,11 +168,12 @@ export default function Signup() {
                 alt="비밀번호 보이기"
                 style={{ width: 'auto', height: 'auto' }}
               />
-              {errors.passwordCheck && passwordCheck.length > 0 && (
-                <p className="text-[#f74747] font-semibold text-[15px] mt-[10px]">
-                  {errors.passwordCheck.message}
-                </p>
-              )}
+              {errors.passwordConfirmation &&
+                passwordConfirmation.length > 0 && (
+                  <p className="text-[#f74747] font-semibold text-[15px] mt-[10px]">
+                    {errors.passwordConfirmation.message}
+                  </p>
+                )}
             </div>
           </div>
           <div className="h-[56px] rounded-[40px] overflow-hidden">

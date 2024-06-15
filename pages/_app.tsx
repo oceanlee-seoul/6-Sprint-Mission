@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
+import { AuthProvider } from '@/contexts/AuthProvider';
 
 type TCustomAppProps = AppProps & {
   Component: AppProps['Component'] & { hideHeader?: boolean };
@@ -9,8 +10,10 @@ type TCustomAppProps = AppProps & {
 export default function App({ Component, pageProps }: TCustomAppProps) {
   return (
     <>
-      {!Component.hideHeader && <Header />}
-      <Component {...pageProps} />
+      <AuthProvider>
+        {!Component.hideHeader && <Header />}
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   );
 }
