@@ -46,7 +46,7 @@ export default function Login() {
     console.log(data);
     try {
       await login(data);
-      router.push('/board');
+      router.push('/');
     } catch (error) {
       console.error(error);
     }

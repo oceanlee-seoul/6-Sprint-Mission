@@ -60,6 +60,14 @@ export default function Signup() {
     trigger('passwordConfirmation');
   }, [password, passwordConfirmation, trigger]);
 
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      window.alert('이미 로그인된 상태입니다.');
+      router.push('/');
+    }
+  }, [router]);
+
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
     try {
       await axios.post('/auth/signUp', data);
