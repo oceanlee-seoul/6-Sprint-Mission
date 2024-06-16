@@ -2,7 +2,13 @@ import { useState } from 'react';
 import Button from '@/components/Button';
 import { addComment } from '@/pages/api/apis';
 
-export default function AddComment({ articleId }: { articleId: string }) {
+export default function AddComment({
+  articleId,
+  onCommentAdded,
+}: {
+  articleId: string;
+  onCommentAdded: () => void;
+}) {
   const [value, setValue] = useState<string>('');
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
 
@@ -11,6 +17,7 @@ export default function AddComment({ articleId }: { articleId: string }) {
       await addComment(articleId, value);
       setValue('');
       setBtnDisabled(true);
+      onCommentAdded();
     } catch (error) {
       console.error('Failed to post comment', error);
     }

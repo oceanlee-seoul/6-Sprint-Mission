@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 import Head from 'next/head';
 import Image from 'next/image';
+
+import { createArticle, imageUpload } from '@/pages/api/apis';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
@@ -12,6 +15,8 @@ import ICON_CANCEL_BTN from '@/public/icon-cancel-btn.svg';
 import { IBoardValues } from '@/interface/interface';
 
 export default function AddBoard() {
+  const router = useRouter();
+
   const [values, setValues] = useState<IBoardValues>({
     title: '',
     content: '',
@@ -33,6 +38,23 @@ export default function AddBoard() {
     if (!inputNode) return;
     inputNode.value = '';
     onChangeValues('imgFile', null);
+  };
+
+  const handleCreateArticle = async () => {
+    const { title, content, imgFile } = values;
+    let imgUrl = '';
+    try {
+      if (imgFile) {
+        imgUrl = await imageUpload(imgFile);
+        await createArticle(title, content, imgUrl);
+        router.push('/board');
+      } else {
+        await createArticle(title, content);
+        router.push('/board');
+      }
+    } catch (error) {
+      console.error('Error in handleCreateArticle', error);
+    }
   };
 
   useEffect(() => {
@@ -64,7 +86,9 @@ export default function AddBoard() {
           <div className="mb-[20px] flex justify-between items-center">
             <h1 className="font-bold text-[20px]">게시글 쓰기</h1>
             <div className="w-[88px] h-[42px] rounded-lg overflow-hidden">
-              <Button disabled={!canSubmit}>등록</Button>
+              <Button onClick={handleCreateArticle} disabled={!canSubmit}>
+                등록
+              </Button>
             </div>
           </div>
           <form className="w-[100%]">

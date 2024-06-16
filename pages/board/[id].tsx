@@ -86,6 +86,7 @@ export default function BoardDetail() {
               articleId={
                 typeof router.query.id === 'string' ? router.query.id : ''
               }
+              onCommentAdded={fetchCommentsList}
             />
           </div>
           <div>
