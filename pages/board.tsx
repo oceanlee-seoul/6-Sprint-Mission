@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import useDisplaySize, { TDisplaySize } from '@/hooks/useDisplaySize';
 import { IArticle, ILoadArticlesParams } from '@/interface/interface';
 import { loadArticles } from '@/pages/api/apis';
 
@@ -14,8 +15,6 @@ import Container from '@/components/Container';
 import FilterBox from '@/components/FilterBox';
 
 import ICON_MAGNIFY from '@/public/icon-magnify.svg';
-
-type TDisplaySize = 'desktop' | 'tablet' | 'mobile';
 
 export default function Board() {
   const router = useRouter();
@@ -29,7 +28,7 @@ export default function Board() {
     keyword: '',
   });
 
-  const [displaySize, setDisplaySize] = useState<TDisplaySize>();
+  const displaySize = useDisplaySize();
 
   const fetchArticles = async () => {
     const articleList = await loadArticles(params);
@@ -51,9 +50,7 @@ export default function Board() {
     setParams((prevParams) => ({ ...prevParams, [key]: value }));
   }
 
-  function getResponseBestArticleSize(
-    displaySize: TDisplaySize | undefined,
-  ): number {
+  function getResponseBestArticleSize(displaySize: TDisplaySize): number {
     let articlesToDisplay;
     switch (displaySize) {
       case 'desktop':
@@ -69,38 +66,10 @@ export default function Board() {
   }
 
   useEffect(() => {
-    function getDisplaySize() {
-      const width = window.innerWidth;
-      if (width < 768) {
-        return 'mobile';
-      } else if (width < 1200) {
-        return 'tablet';
-      } else {
-        return 'desktop';
-      }
+    if (displaySize !== undefined) {
+      fetchBestArticles(getResponseBestArticleSize(displaySize));
     }
-
-    function handleResize() {
-      setDisplaySize(getDisplaySize());
-      fetchBestArticles(getResponseBestArticleSize(getDisplaySize()));
-    }
-
-    let debounceTimer: ReturnType<typeof setTimeout>;
-
-    function debounceHandleResize() {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(handleResize, 100); // 100ms의 디바운스 타임
-    }
-
-    fetchBestArticles(getResponseBestArticleSize(getDisplaySize()));
-    setDisplaySize(getDisplaySize());
-
-    window.addEventListener('resize', debounceHandleResize);
-
-    return () => {
-      window.removeEventListener('resize', debounceHandleResize);
-    };
-  }, []);
+  }, [displaySize]);
 
   useEffect(() => {
     fetchArticles();
