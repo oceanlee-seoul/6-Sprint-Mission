@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from '@/lib/axios';
@@ -16,6 +16,7 @@ import LOGO_IMG from '@/public/logo-pandamarket.svg';
 import SOCIAL_BTN_GOOGLE from '@/public/icon-google.svg';
 import SOCIAL_BTN_KAKAO from '@/public/icon-kakao.svg';
 import ICON_VISIBILITY from '@/public/icon-visibility.svg';
+import ICON_INVISIBILITY from '@/public/icon-invisibility.svg';
 
 type TInputs = {
   email: string;
@@ -30,7 +31,10 @@ const schema = yup.object().shape({
     .email('유효한 이메일 주소를 입력해주세요.')
     .required('이메일을 입력해주세요.'),
   nickname: yup.string().required('닉네임을 입력해주세요.'),
-  password: yup.string().required('비밀번호를 입력해주세요.'),
+  password: yup
+    .string()
+    .required('비밀번호를 입력해주세요.')
+    .min(8, '비밀번호는 최소 8자 이상이어야 합니다.'),
   passwordConfirmation: yup
     .string()
     .required('비밀번호 확인을 입력해주세요.')
@@ -41,6 +45,11 @@ const schema = yup.object().shape({
 
 export default function Signup() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const {
     register,
@@ -107,7 +116,9 @@ export default function Signup() {
               이메일
             </label>
             <input
-              className="w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px]"
+              className={`w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] ${
+                errors.email && 'border-2 border-[#f74747]'
+              }`}
               placeholder="이메일을 입력해주세요"
               {...register('email')}
             />
@@ -122,7 +133,9 @@ export default function Signup() {
               닉네임
             </label>
             <input
-              className="w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px]"
+              className={`w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] ${
+                errors.nickname && 'border-2 border-[#f74747]'
+              }`}
               placeholder="닉네임을 입력해주세요"
               autoComplete="username"
               {...register('nickname')}
@@ -139,17 +152,20 @@ export default function Signup() {
             </label>
             <div className="relative">
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 autoComplete="new-password"
-                className="w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] "
+                className={`w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] ${
+                  errors.password && 'border-2 border-[#f74747]'
+                }`}
                 placeholder="비밀번호를 입력해주세요"
                 {...register('password')}
               />
               <Image
-                className="absolute top-[15px] right-[15px]"
-                src={ICON_VISIBILITY}
+                className="absolute top-[15px] right-[15px] cursor-pointer"
+                src={showPassword ? ICON_INVISIBILITY : ICON_VISIBILITY}
                 alt="비밀번호 보이기"
                 style={{ width: 'auto', height: 'auto' }}
+                onClick={handleShowPassword}
               />
               {errors.password && (
                 <p className="text-[#f74747] font-semibold text-[15px] mt-[10px]">
@@ -164,17 +180,22 @@ export default function Signup() {
             </label>
             <div className="relative">
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 autoComplete="new-password"
-                className="w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px]"
+                className={`w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] ${
+                  errors.passwordConfirmation &&
+                  passwordConfirmation.length > 0 &&
+                  'border-2 border-[#f74747]'
+                }`}
                 placeholder="비밀번호를 다시 한 번 입력해주세요"
                 {...register('passwordConfirmation')}
               />
               <Image
-                className="absolute top-[15px] right-[15px]"
-                src={ICON_VISIBILITY}
+                className="absolute top-[15px] right-[15px] cursor-pointer"
+                src={showPassword ? ICON_INVISIBILITY : ICON_VISIBILITY}
                 alt="비밀번호 보이기"
                 style={{ width: 'auto', height: 'auto' }}
+                onClick={handleShowPassword}
               />
               {errors.passwordConfirmation &&
                 passwordConfirmation.length > 0 && (

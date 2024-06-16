@@ -38,7 +38,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isValid },
   } = useForm<TInputs>({ resolver: yupResolver(schema), mode: 'onChange' });
 
@@ -90,7 +89,9 @@ export default function Login() {
               이메일
             </label>
             <input
-              className="w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px]"
+              className={`w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] ${
+                errors.email && 'border-2 border-[#f74747]'
+              }`}
               placeholder="이메일을 입력해주세요"
               {...register('email', { required: true })}
             />
@@ -107,7 +108,9 @@ export default function Login() {
             <div className="relative">
               <input
                 type="password"
-                className="w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] "
+                className={`w-[100%] bg-[#f3f4f6] h-[56px] px-[30px] rounded-xl text-[16px] ${
+                  errors.password && 'border-2 border-[#f74747]'
+                }`}
                 placeholder="비밀번호를 입력해주세요"
                 {...register('password', { required: true })}
               />
