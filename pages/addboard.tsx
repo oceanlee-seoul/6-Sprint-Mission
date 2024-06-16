@@ -58,6 +58,14 @@ export default function AddBoard() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      window.alert('로그인이 필요한 작업입니다.');
+      router.push('/login');
+    }
+  }, [router]);
+
+  useEffect(() => {
     if (!values.imgFile) return;
     const previewImgString = URL.createObjectURL(values.imgFile);
     setPreview(previewImgString);
